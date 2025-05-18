@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom"
 import CommonButton from "./CommonButton"
 
 const Hero = () => {
+    const navigate = useNavigate();
     return (
         <div className="min-h-screen flex flex-col items-center gap-10 justify-center text-center max-w-[900px] w-full mx-auto p-3">
             <div className="flex flex-col gap-8">
@@ -10,7 +12,7 @@ const Hero = () => {
                 </h1>
                 <p className="text-base md:text-lg font-light text-slate-200">The app that keeps you on track—plan workouts, monitor your progress, and stay motivated every step of the way.</p>
             </div>
-            <CommonButton func={() => { window.location.href = '#generate' }} btnText={"Get Started"} />
+            <CommonButton btnText={"Get Started"} func={()=>navigate('/login')} />
         </div>
     )
 }

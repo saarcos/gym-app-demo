@@ -2,7 +2,7 @@ import { SCHEMES, WORKOUTS } from "../utils/exercises"
 import SectionWrapper from "./SectionWrapper"
 import { ChevronDown } from 'lucide-react'
 import CommonButton from "./CommonButton"
-import { useState } from "react"
+import { Fragment, useState } from "react"
 function Header({ index, title, description }) {
     return (
         <div className="flex flex-col gap-4">
@@ -65,14 +65,14 @@ const Generator = ({ workoutSplit, setWorkoutSplit, muscles, setMuscles, goal, s
                         {(workoutSplit === 'individual' ? WORKOUTS[workoutSplit] : Object.keys(WORKOUTS[workoutSplit]))
                             .map((muscleGroup, index) => {
                                 return (
-                                    <>
+                                    <Fragment key={index}>
                                         <button onClick={() => updateMuscles(muscleGroup)} key={index} className={`group flex flex-col cursor-pointer items-center py-3  duration-200 transition-colors text-sm font-medium hover:font-semibold opacity-90 ${muscles.includes(muscleGroup) ? 'text-cyan-400 drop-shadow-[0_0_10px_#22d3ee]' : 'text-white'} `}>
                                             <p className="capitalize group-hover:text-cyan-300 group-hover:drop-shadow-[0_0_10px_#22d3ee] font-semibold text-sm sm:text-base">
                                                 {muscleGroup}
                                             </p>
                                         </button>
                                         <div className="h-[1px] w-[95%] mx-auto my-2 bg-cyan-200 drop-shadow-[0_0_6px_#22d3ee]" />
-                                    </>
+                                    </Fragment>
                                 )
                             }
                             )}
