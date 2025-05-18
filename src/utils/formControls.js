@@ -6,7 +6,14 @@ export const loginFormControls = [
         type: 'email',
         autocomplete: 'email',
         placeholder: 'Enter your email',
-        componentType: 'input'
+        componentType: 'input',
+        validation: {
+            required: "Email is required",
+            pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email format",
+            },
+        }
     },
     {
         id: 'password',
@@ -15,7 +22,14 @@ export const loginFormControls = [
         type: 'password',
         autocomplete: 'new-password',
         placeholder: '************',
-        componentType: 'input'
+        componentType: 'input',
+        validation: {
+            required: "Password is required",
+            minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters",
+            },
+        }
     },
 ];
 export const registerFormControls = [
@@ -26,7 +40,10 @@ export const registerFormControls = [
         type: 'text',
         autocomplete: 'username',
         placeholder: 'Enter your username',
-        componentType: 'input'
+        componentType: 'input',
+        validation: {
+            required: "Username is required",
+        }
     },
     {
         id: 'email',
@@ -35,7 +52,14 @@ export const registerFormControls = [
         type: 'email',
         autocomplete: 'email',
         placeholder: 'Enter your email',
-        componentType: 'input'
+        componentType: 'input',
+        validation: {
+            required: "Email is required",
+            pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid email format",
+            },
+        }
     },
     {
         id: 'password',
@@ -44,6 +68,13 @@ export const registerFormControls = [
         type: 'password',
         autocomplete: 'new-password',
         placeholder: '************',
-        componentType: 'input'
+        componentType: 'input',
+        validation: {
+            required: "Password is required",
+            minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters",
+            },
+        }
     }
 ]

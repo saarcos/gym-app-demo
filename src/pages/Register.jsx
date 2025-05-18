@@ -1,9 +1,23 @@
 import { useNavigate } from "react-router-dom"
 import CommonForm from "../components/forms/CommonForm"
 import { registerFormControls } from "../utils/formControls"
+import { registerUser } from "../services/userService";
 
 const Register = () => {
     const navigate = useNavigate();
+    const handleSubmit = async (formData) => {
+        try {
+            const response = await registerUser(formData);
+            if (response?.success) {
+                navigate('/login', { replace: true })
+            }
+            else {
+                console.error(response?.message || 'Sign up failed');
+            }
+        } catch (error) {
+            console.error("Sign up error:", error);
+        }
+    }
     return (
         <div className='flex flex-row w-full h-screen text-white'>
             <div className="w-full sm:w-1/2 flex items-center justify-center bg-gradient-to-br from-black via-slate-900 to-blue-900">
@@ -14,7 +28,7 @@ const Register = () => {
                             Create an account to start your journey with us.
                         </p>
                     </div>
-                    <CommonForm formControls={registerFormControls} btnText={"Register"} onSubmit={(data) => console.log(data)} />
+                    <CommonForm formControls={registerFormControls} btnText={"Register"} onSubmit={handleSubmit} />
                     <div className="space-y-4">
                         <div className="text-center text-base text-slate-400 mt-4">
                             Already have an account?{" "}

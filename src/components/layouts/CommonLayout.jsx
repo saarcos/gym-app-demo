@@ -1,10 +1,11 @@
 import { Menu } from 'lucide-react';
 import { useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
+import { useAuth } from '../../hooks/useAuth';
 const CommonLayout = () => {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
-
+    const { logout } = useAuth();
     const isActive = (path) => {
         return location.pathname === path;
     }
@@ -13,7 +14,6 @@ const CommonLayout = () => {
             ? 'text-white drop-shadow-[0_0_6px_#22d3ee] font-semibold'
             : 'text-cyan-200'} hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee] transition`
     }
-
 
     return (
         <div>
@@ -32,6 +32,7 @@ const CommonLayout = () => {
                         <Link to="/generator" className={linkClasses("/generator")}>Routine generator</Link>
                         <Link to="/routines" className='hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee]'>My routines</Link>
                         <Link to="/progress" className='hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee]'>Training</Link>
+                        <button className='cursor-pointer' onClick={()=>logout()}>Logout</button>
                     </div>
                 </div>
 

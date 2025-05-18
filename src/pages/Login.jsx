@@ -1,9 +1,27 @@
 import { useNavigate } from "react-router-dom";
 import CommonForm from "../components/forms/CommonForm";
 import { loginFormControls } from "../utils/formControls";
+import { loginUser } from "../services/userService";
+import { useAuth } from "../hooks/useAuth";
 
 const Login = () => {
     const navigate = useNavigate();
+    const {setUser} = useAuth();
+    const handleSubmit = async (formData) => {
+        console.log(formData);
+        try {
+            const response = await loginUser(formData);
+            if (response?.success) {
+                setUser(response?.user)
+                navigate('/generator', { replace: true });
+            } else {
+                console.error(response?.message || 'Login failed');
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+        }
+
+    }
     return (
         <div className='flex flex-row w-full h-screen text-white'>
             <div className="w-full sm:w-1/2 flex items-center justify-center bg-gradient-to-br from-black via-slate-900 to-blue-900">
@@ -12,7 +30,7 @@ const Login = () => {
                         <h1 className="text-3xl font-extrabold text-cyan-300 drop-shadow-[0_0_6px_#22d3ee]">Welcome back!</h1>
                         <p className="text-base text-slate-300 mt-2">Log in with your credentials to continue.</p>
                     </div>
-                    <CommonForm formControls={loginFormControls} btnText={"Login"} onSubmit={(data) => console.log(data)} />
+                    <CommonForm formControls={loginFormControls} btnText={"Login"} onSubmit={handleSubmit} />
                     <div className="space-y-4">
                         <div className="text-center text-base text-slate-400 mt-4">
                             Don't have an account?{" "}
