@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/routing/ProtectedRoute"
 import { useAuth } from "./hooks/useAuth"
 import { Cog } from "lucide-react"
 import PublicRoute from "./components/routing/PublicRoute"
+import MyRoutines from "./pages/MyRoutines"
 
 function App() {
   const { loading } = useAuth();
@@ -42,6 +43,11 @@ function App() {
           <Route path="/generator" element={
             <ProtectedRoute>
               <WorkoutGenerator />
+            </ProtectedRoute>
+          } />
+          <Route path="/myroutines" element={
+            <ProtectedRoute>
+              <MyRoutines />
             </ProtectedRoute>
           } />
         </Route>

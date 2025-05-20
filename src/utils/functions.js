@@ -3,7 +3,9 @@ const exercises = exercisesFlattener(EXERCISES)
 
 export function generateWorkout(args) {
     const { muscles, workoutSplit: workout, goal } = args
+    //Me permite extraer solo las keys de los objects de ejercicios, solo devuelve dumbbell_bench_press, etc.
     let exer = Object.keys(exercises);
+    //Excluyo los ejercicios caseros
     exer = exer.filter((key) => exercises[key].meta.environment !== "home");
     let includedTracker = [];
     let listOfMuscles;
@@ -11,13 +13,15 @@ export function generateWorkout(args) {
     if (workout === "individual") {
         listOfMuscles = muscles;
     } else {
+        //Encuentro, por ejemplo, si es bro_split WORKOUTS['bro_split']['push'] y me devuelve = ['chest', 'triceps', 'shoulders']
         listOfMuscles = WORKOUTS[workout][muscles[0]];
     }
-
+    //Randomiza el orden de los grupos musculares
     listOfMuscles = new Set(shuffleArray(listOfMuscles));
     let arrOfMuscles = Array.from(listOfMuscles);
     let scheme = goal
     let sets = SCHEMES[scheme].ratio
+        //Extrae los tipos de ejercicios a atacar con su frecuencia, da como resultado, ejemplo, con ratio[3,2] = ["compound", "compound", "compound", "accessory",  "accessory"]
         .reduce((acc, curr, index) => {
             //make this compound and exercise muscle -> array of objects and destructure in loop
             return [
@@ -27,6 +31,16 @@ export function generateWorkout(args) {
                 ),
             ];
         }, [])
+        //Asigna los músculos a cada set, ejemplo con lo de antes 
+        /*
+            sets = [
+            { setType: 'compound', muscleGroup: 'triceps' },   // index 0
+            { setType: 'compound', muscleGroup: 'shoulders' }, // index 1
+            { setType: 'accessory', muscleGroup: 'chest' },    // index 2
+            { setType: 'accessory', muscleGroup: 'triceps' },  // index 3
+            { setType: 'accessory', muscleGroup: 'shoulders' } // index 4
+            ]
+        */
         .reduce((acc, curr, index) => {
             const muscleGroupToUse =
                 index < arrOfMuscles.length

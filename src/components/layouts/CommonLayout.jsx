@@ -30,7 +30,7 @@ const CommonLayout = () => {
                     {/* Desktop menu*/}
                     <div className="hidden md:flex gap-6 text-cyan-200">
                         <Link to="/generator" className={linkClasses("/generator")}>Routine generator</Link>
-                        <Link to="/routines" className='hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee]'>My routines</Link>
+                        <Link to="/myroutines" className='hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee]'>My routines</Link>
                         <Link to="/progress" className='hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee]'>Training</Link>
                         <button className='cursor-pointer' onClick={()=>logout()}>Logout</button>
                     </div>
@@ -40,7 +40,7 @@ const CommonLayout = () => {
                 {isOpen && (
                     <div className="md:hidden bg-slate-900/90 backdrop-blur-sm px-4 py-2 text-cyan-200 flex flex-col space-y-2">
                         <Link to="/generator" onClick={() => setIsOpen(false)} className='hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee]'>Routine generator</Link>
-                        <Link to="/routines" onClick={() => setIsOpen(false)} className='hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee]'>My routines</Link>
+                        <Link to="/myroutines" onClick={() => setIsOpen(false)} className='hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee]'>My routines</Link>
                         <Link to="/progress" onClick={() => setIsOpen(false)} className='hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee]'>Training</Link>
                     </div>
                 )}
