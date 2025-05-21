@@ -12,13 +12,13 @@ const Exercise = ({ exercise, onClick, isAdded }) => {
           : "bg-slate-950 border-cyan-400 hover:bg-slate-900"
       }`}
     >
-      <div className="flex items-center gap-3 bg-slate-900 rounded-lg p-3 shadow-[0_0_8px_#22d3ee22]">
+      <div className="flex flex-col sm:flex-row items-center gap-3 bg-slate-900 rounded-lg p-3 shadow-[0_0_8px_#22d3ee22]">
         <img
           src={exercise.imageUrl}
           alt={exercise.name}
           className="w-18 h-18 sm:w-20 sm:h-20 object-cover rounded-full border-2 border-cyan-400 shadow-[0_0_6px_#22d3ee]"
         />
-        <div className="flex flex-col flex-grow">
+        <div className="flex flex-col flex-grow text-center sm:text-start">
           <p className="text-md sm:text-xl font-semibold text-cyan-300 drop-shadow-[0_0_4px_#22d3ee] truncate">
             {exercise.name}
           </p>
@@ -32,11 +32,10 @@ const Exercise = ({ exercise, onClick, isAdded }) => {
             e.stopPropagation();
             onClick();
           }}
-          disabled={isAdded}
           className={`text-sm flex items-center gap-1 px-3 py-1 rounded-lg transition-all duration-300 font-medium
             ${
               isAdded
-                ? "bg-cyan-700/30 text-cyan-300 cursor-default shadow-[0_0_6px_#22d3ee55] scale-100 animate-[pulse_1s_ease-in-out]"
+                ? "bg-cyan-700/30 text-cyan-300 cursor-pointer shadow-[0_0_6px_#22d3ee55] scale-100 animate-[pulse_1s_ease-in-out]"
                 : "border border-cyan-400 text-cyan-100 hover:bg-cyan-600 hover:text-white shadow-[0_0_6px_#22d3ee] cursor-pointer active:scale-95"
             }`}
         >

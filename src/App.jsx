@@ -9,10 +9,11 @@ import { useAuth } from "./hooks/useAuth"
 import { Cog } from "lucide-react"
 import PublicRoute from "./components/routing/PublicRoute"
 import MyRoutines from "./pages/MyRoutines"
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
   const { loading } = useAuth();
-
+  const queryClient = new QueryClient();
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-screen text-muted-foreground bg-gradient-to-r from-black via-slate-900 to-blue-600">
@@ -22,37 +23,39 @@ function App() {
     );
   }
   return (
-    <main className="min-h-screen flex flex-col bg-gradient-to-r from-black via-slate-900 to-blue-600 text-white text-sm sm:text-base">
-      <Routes>
-        <Route path="/" element={<Hero />} />
-        <Route path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-        <Route path="/register"
-          element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          }
-        />
-        <Route element={<CommonLayout />}>
-          <Route path="/generator" element={
-            <ProtectedRoute>
-              <WorkoutGenerator />
-            </ProtectedRoute>
-          } />
-          <Route path="/myroutines" element={
-            <ProtectedRoute>
-              <MyRoutines />
-            </ProtectedRoute>
-          } />
-        </Route>
-      </Routes>
-    </main>
+    <QueryClientProvider client={queryClient}>
+      <main className="min-h-screen flex flex-col bg-gradient-to-r from-black via-slate-900 to-blue-600 text-white text-sm sm:text-base">
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route path="/register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
+          <Route element={<CommonLayout />}>
+            <Route path="/generator" element={
+              <ProtectedRoute>
+                <WorkoutGenerator />
+              </ProtectedRoute>
+            } />
+            <Route path="/myroutines" element={
+              <ProtectedRoute>
+                <MyRoutines />
+              </ProtectedRoute>
+            } />
+          </Route>
+        </Routes>
+      </main>
+    </QueryClientProvider>
   )
 }
 
