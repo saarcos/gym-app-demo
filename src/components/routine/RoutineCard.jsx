@@ -3,13 +3,22 @@ import dayjs from 'dayjs';
 import { EllipsisVertical } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { deleteRoutineById } from '../../services/routineService';
+import { useNavigate } from 'react-router-dom';
+import { createWorkoutSession } from '../../services/trainingSessionService';
 
 export const RoutineCard = ({ routine, user }) => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const deleteMutation = useMutation({
     mutationFn: deleteRoutineById,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['routines', user?.id] });
+    }
+  })
+  const createMutation = useMutation({
+    mutationFn: createWorkoutSession,
+    onSuccess: (data) => {
+      navigate(`/training/${routine.id}/${data?.training_session.id}`)
     }
   })
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,6 +44,14 @@ export const RoutineCard = ({ routine, user }) => {
   const handleDeleteRoutine = () => {
     deleteMutation.mutate(routine.id);
   }
+  const handleCreateSession = () => {
+    const payload = {
+      userId: routine?.userId,
+      routineId: routine?.id,
+    }
+    console.log(payload)
+    createMutation.mutate(payload);
+  }
   return (
     <div className="relative bg-gradient-to-br from-slate-950 to-slate-900 border border-cyan-600 rounded-2xl shadow-[0_0_6px_rgba(34,211,238,0.4)] p-5 transition-all duration-200 hover:shadow-[0_0_20px_rgba(34,211,238,0.6)] hover:-translate-y-0.5 group">
       <div className="flex flex-col gap-5 text-center">
@@ -56,7 +73,7 @@ export const RoutineCard = ({ routine, user }) => {
           {routine.muscles.join(", ")}
         </p>
 
-        <button className="relative cursor-pointer mt-3 bg-gradient-to-r from-cyan-600 to-cyan-800 hover:from-cyan-500 hover:to-cyan-700 text-white font-semibold py-2 px-6 rounded-lg shadow-[0_0_5px_rgba(34,211,238,0.6)] hover:shadow-[0_0_10px_rgba(34,211,238,0.8)] transition-all duration-300 overflow-hidden group/button">
+        <button onClick={handleCreateSession} className="relative cursor-pointer mt-3 bg-gradient-to-r from-cyan-600 to-cyan-800 hover:from-cyan-500 hover:to-cyan-700 text-white font-semibold py-2 px-6 rounded-lg shadow-[0_0_5px_rgba(34,211,238,0.6)] hover:shadow-[0_0_10px_rgba(34,211,238,0.8)] transition-all duration-300 overflow-hidden group/button">
           <span className="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover/button:opacity-100 transition-opacity duration-200"></span>
           <span className="relative z-10">Start Workout</span>
         </button>

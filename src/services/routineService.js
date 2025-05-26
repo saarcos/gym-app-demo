@@ -33,3 +33,15 @@ export const deleteRoutineById = async (routineId) => {
         };
     }
 }
+
+export const getRoutineById = async (routineId) => {
+    try {
+        const axiosResponse = await axios.get(`http://localhost:4000/api/routine/get-routine-by-id/${routineId}`);
+        return axiosResponse?.data.routine;
+    } catch (error) {
+        return {
+            success: false,
+            message: error?.response?.data?.message || "Couldn't fetch the routines",
+        };
+    }
+}

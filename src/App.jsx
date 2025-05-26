@@ -10,6 +10,7 @@ import { Cog } from "lucide-react"
 import PublicRoute from "./components/routing/PublicRoute"
 import MyRoutines from "./pages/MyRoutines"
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Training from "./pages/Training"
 
 function App() {
   const { loading } = useAuth();
@@ -50,6 +51,11 @@ function App() {
             <Route path="/myroutines" element={
               <ProtectedRoute>
                 <MyRoutines />
+              </ProtectedRoute>
+            } />
+            <Route path="/training/:routineId/:trainingSessionId" element={
+              <ProtectedRoute>
+                <Training />
               </ProtectedRoute>
             } />
           </Route>

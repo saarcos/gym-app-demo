@@ -31,8 +31,7 @@ const CommonLayout = () => {
                     <div className="hidden md:flex gap-6 text-cyan-200">
                         <Link to="/generator" className={linkClasses("/generator")}>Routine generator</Link>
                         <Link to="/myroutines" className='hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee]'>My routines</Link>
-                        <Link to="/progress" className='hover:text-white hover:drop-shadow-[0_0_5px_#22d3ee]'>Training</Link>
-                        <button className='cursor-pointer' onClick={()=>logout()}>Logout</button>
+                        <button className='cursor-pointer' onClick={() => logout()}>Logout</button>
                     </div>
                 </div>
 
